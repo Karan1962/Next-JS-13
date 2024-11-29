@@ -1,10 +1,12 @@
+// allow import tsx
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "../components/Header.jsx";
 import "./globals.css";
 import { dark } from "@clerk/themes";
+// eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
-
+import { ThemeProvider } from "@/context/ThemeProvider.tsx";
 export const metadata: Metadata = {
   title: "DevFlow",
   description:
@@ -31,22 +33,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-        variables: { colorPrimary: "#3371FF", fontSize: "16px" },
-        elements: {
-          formButtonPrimary: "primary-text-gradient",
-          footerActionLink: "primary-text-gradient hover:text-primary-500",
-        },
-      }}
-    >
-      <html lang="en">
-        <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-          <Header />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+        <ClerkProvider
+          appearance={{
+            baseTheme: dark,
+            variables: { colorPrimary: "#3371FF", fontSize: "16px" },
+            elements: {
+              formButtonPrimary: "primary-gradient",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
+            },
+          }}
+        >
+          <ThemeProvider>
+            <Header />
+            {children}
+          </ThemeProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
