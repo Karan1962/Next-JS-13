@@ -1,6 +1,5 @@
 // allow import tsx
 import { ClerkProvider } from "@clerk/nextjs";
-import Header from "../components/Header.jsx";
 import "./globals.css";
 import { dark } from "@clerk/themes";
 // eslint-disable-next-line camelcase
@@ -45,10 +44,7 @@ export default function RootLayout({
             },
           }}
         >
-          <ThemeProvider>
-            <Header />
-            {children}
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>
       </body>
     </html>

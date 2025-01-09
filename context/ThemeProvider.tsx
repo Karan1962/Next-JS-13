@@ -4,29 +4,30 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface ThemeContextType {
   mode: string;
-  setMode: (mode: string) => void;
+  toggleMode: () => void;
 }
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("light");
 
-  const handleThemeChange = () => {
-    if (mode === "dark") {
-      setMode("light");
-      document.documentElement.classList.add("light");
-    } else {
-      setMode("dark");
-      document.documentElement.classList.add("dark");
-    }
+  const toggleMode = () => {
+    const newMode = mode === "dark" ? "light" : "dark";
+    setMode(newMode);
+
+    // Update the document class
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(newMode);
   };
 
   useEffect(() => {
-    handleThemeChange();
-  }, [mode]);
+    // Initialize theme based on the current mode
+    document.documentElement.classList.add(mode);
+  }, []); // Run only once on mount
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode }}>
+    <ThemeContext.Provider value={{ mode, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );
