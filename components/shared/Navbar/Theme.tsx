@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/classnames-order */
+/* eslint-disable tailwindcss/no-unnecessary-arbitrary-value */
 /* eslint-disable tailwindcss/no-custom-classname */
 "use client";
 import { useTheme } from "@/context/ThemeProvider";

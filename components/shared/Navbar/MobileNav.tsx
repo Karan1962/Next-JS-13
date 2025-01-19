@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 /* eslint-disable tailwindcss/no-custom-classname */
 "use client";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ const NavContent = () => {
               href={item.route}
               className={`${
                 isActive
-                  ? "primary-gradient rounded-lg rounded-lg text-light-900"
+                  ? "primary-gradient rounded-lg  text-light-900"
                   : "text-dark300_light900 "
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
