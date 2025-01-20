@@ -21,6 +21,7 @@ import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { useState } from "react";
+import { createQuestion } from "@/lib/actions/questions.action";
 
 const type: any = "create";
 
@@ -42,9 +43,7 @@ const Question = () => {
     setIsSubmitting(true);
 
     try {
-      const a: number = 1;
-      const b: number = 2;
-      const res = a + b;
+      await createQuestion({});
     } catch (error) {
       console.log(error);
     } finally {
@@ -117,7 +116,7 @@ const Question = () => {
         <FormField
           control={form.control}
           name="explanation"
-          render={() => (
+          render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Detailed explanation of your problem{" "}
@@ -191,6 +190,8 @@ const Question = () => {
                       ),
                   }}
                   initialValue=""
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
