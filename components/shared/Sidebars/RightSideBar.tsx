@@ -5,36 +5,36 @@ import RenderTag from "./RenderTag";
 const RightSideBar = () => {
   const hotQuestions = [
     {
-      _id: 1,
+      _id: "1",
       title:
         "How to Ensure Unique User Profile with ON CONFLICT in PostgreSQL Using Drizzle ORM?",
     },
     {
-      _id: 2,
+      _id: "2",
       title:
         "What are the benefits and trade-offs of using Server-Side Rendering (SSR) in Next.js?",
     },
     {
-      _id: 3,
+      _id: "3",
       title: "How to center a div?",
     },
     {
-      _id: 4,
+      _id: "4",
       title:
         "Node.js res.json() and res.send(), not working but still able to change status code",
     },
     {
-      _id: 5,
+      _id: "5",
       title: "ReactJs or NextJs for begginers i ask for advice",
     },
   ];
 
   const popularTags = [
-    { _id: 1, name: "javascript", totalQuestions: 5 },
-    { _id: 2, name: "redux", totalQuestions: 6 },
-    { _id: 3, name: "next js", totalQuestions: 10 },
-    { _id: 4, name: "vue js", totalQuestions: 8 },
-    { _id: 5, name: "Angular js", totalQuestions: 3 },
+    { _id: "1", name: "javascript", totalQuestions: 5 },
+    { _id: "2", name: "redux", totalQuestions: 6 },
+    { _id: "3", name: "next js", totalQuestions: 10 },
+    { _id: "4", name: "vue js", totalQuestions: 8 },
+    { _id: "5", name: "Angular js", totalQuestions: 3 },
   ];
   return (
     <section className="background-light900_dark200 light-border sticky right-0 top-0 flex h-screen flex-col  overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden w-[350px] custom-scrollbar gap-5 ">
