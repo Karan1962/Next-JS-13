@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
 
-let isConnected: boolean = false;
-
 export const connectToDatabase = async () => {
   mongoose.set("strictQuery", true);
 
   if (!process.env.MONGODB_URI) return console.log("MISSING MONGODB URL");
 
-  if (isConnected) {
+  if (mongoose.connection.readyState >= 1) {
     return console.log("MongoDB is already connected");
   }
 
@@ -15,7 +13,6 @@ export const connectToDatabase = async () => {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "devFlow",
     });
-    isConnected = true;
     console.log("Mongodb connected");
   } catch (err) {
     console.log(err);

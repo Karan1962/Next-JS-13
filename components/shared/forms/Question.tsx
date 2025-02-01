@@ -20,13 +20,24 @@ import { z } from "zod";
 import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createQuestion } from "@/lib/actions/questions.action";
+import { useTheme } from "@/context/ThemeProvider";
+import { ObjectId } from "mongoose";
 
+interface Props {
+  mongoUserId: string;
+}
 const type: any = "create";
 
-const Question = () => {
+const Question = ({ mongoUserId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editorKey, setEditorKey] = useState(0);
+  const { mode } = useTheme();
+
+  useEffect(() => {
+    setEditorKey((prevKey) => prevKey + 1);
+  }, [mode]);
 
   // Define form handling directly within the component
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -43,7 +54,13 @@ const Question = () => {
     setIsSubmitting(true);
 
     try {
-      await createQuestion({});
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+      console.log(JSON.parse(mongoUserId));
     } catch (error) {
       console.log(error);
     } finally {
@@ -73,12 +90,21 @@ const Question = () => {
             message: "Tag must be less than 15 characters",
           });
         }
+        if (field.value.length >= 3) {
+          return form.setError("tags", {
+            type: "max",
+            message: "You can add up to 3 tags only",
+          });
+        }
         if (!field.value.includes(tagValue as never)) {
           form.setValue("tags", [...field.value, tagValue]);
           tagInput.value = "";
           form.clearErrors("tags");
         } else {
-          form.trigger();
+          return form.setError("tags", {
+            type: "exist",
+            message: "This tag is already exist!",
+          });
         }
       }
     }
@@ -124,6 +150,7 @@ const Question = () => {
               </FormLabel>
               <FormControl className="mt-3.5 ">
                 <Editor
+                  key={editorKey}
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   init={{
                     plugins: [
@@ -171,6 +198,8 @@ const Question = () => {
                       "exportword",
                       "exportpdf",
                     ],
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "default",
                     toolbar:
                       "undo redo | codesample | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                     tinycomments_mode: "embedded",
@@ -224,7 +253,6 @@ const Question = () => {
                           <Badge
                             key={tag}
                             className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-                            onClick={() => handleTagRemove(tag, field)}
                           >
                             {tag}
                             <Image
@@ -233,6 +261,7 @@ const Question = () => {
                               width={12}
                               height={12}
                               className="cursor-pointer object-contain invert-0 dark:invert"
+                              onClick={() => handleTagRemove(tag, field)}
                             />
                           </Badge>
                         );
