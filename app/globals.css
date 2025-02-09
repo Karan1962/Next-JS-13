@@ -334,6 +334,11 @@ body {
 .ql-blank {
   min-height: 200px;
 }
+/* 
+.ql-toolbar,
+.ql-snow,
+.ql-container {
+  border: rgba(93, 105, 158, 0.477) 2px solid !important;} Default for dark mode */
 
 .hash-span {
   margin-top: -140px;

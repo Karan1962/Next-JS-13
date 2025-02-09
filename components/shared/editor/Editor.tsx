@@ -18,7 +18,7 @@ const MyEditor = ({
       theme="snow"
       value={value}
       onChange={onChange}
-      className="max-h-[400px] overflow-y-auto"
+      className="max-h-[400px] overflow-y-auto rounded"
       modules={{
         toolbar: [
           [{ header: [1, 2, false] }],
