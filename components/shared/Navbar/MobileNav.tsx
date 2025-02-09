@@ -79,9 +79,7 @@ const MobileNav = () => {
           </p>
         </Link>
         <div className="flex flex-col justify-between gap-6">
-          <SheetClose asChild>
-            <NavContent />
-          </SheetClose>
+          <NavContent />
           <SignedOut>
             <div className="flex flex-col gap-3 ">
               <SheetClose asChild>
