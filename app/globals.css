@@ -330,6 +330,11 @@ body {
     brightness(104%) contrast(106%) !important;
 }
 
+.ql-editor,
+.ql-blank {
+  min-height: 200px;
+}
+
 .hash-span {
   margin-top: -140px;
   padding-bottom: 140px;

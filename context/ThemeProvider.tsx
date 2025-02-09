@@ -11,6 +11,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState("");
+  console.log(`ouside : ${mode}`);
 
   const setThemeMode = () => {
     if (
@@ -29,6 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Ensure the document class matches the mode
     setThemeMode();
+    console.log(`inside ${mode}`);
   }, [mode]);
 
   return (
